@@ -1,0 +1,67 @@
+<div class="container mt-5">
+    <div class="d-flex justify-content-end my-4">
+        <button (click)="create()" class="btn btn-primary me-2">Create Data</button>
+        <input type="text" placeholder="search filter" class="py-2" [(ngModel)]="searchtext"
+            (keyup)="applyFilter(searchtext)">
+    </div>
+
+    <table mat-table [dataSource]="dataSources" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="Sr No">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+                Sr No
+            </th>
+            <td mat-cell *matCellDef="let element ;let i = index;"> {{i+1}} </td>
+        </ng-container>
+        <!-- Position Column -->
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+                date
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.date | date}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+                Name
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="age">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
+                age
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by symbol">
+                address
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+        </ng-container>
+        <ng-container matColumnDef="avatar">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by symbol">
+                avatar
+            </th>
+            <td mat-cell *matCellDef="let element"><img [src]="element.avatar" width="22px" height="22px" alt=""
+                    class="rounded-circle"> </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by symbol">
+                action
+            </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-icon (click)="Editdata(element)">create</mat-icon>
+                <mat-icon>visibility</mat-icon>
+                <mat-icon (click)="deletedata(element)">delete</mat-icon>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

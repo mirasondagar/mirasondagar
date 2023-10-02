@@ -49,14 +49,16 @@
                 </button>
             </mat-form-field>
         </div>
-        <mat-form-field>
-            <mat-label>Favorite food</mat-label>
-            <mat-select formControlName="select" multiple>
-                <mat-option *ngFor="let food of usingdata" [value]="food.productName">
-                    {{food.productName}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        <div class="col-sm-6">
+            <mat-form-field class="w-100">
+                <mat-label>Favorite food</mat-label>
+                <mat-select formControlName="select" multiple>
+                    <mat-option *ngFor="let food of usingdata" [value]="food.id">
+                        {{food.productName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
     <div class="w-100 d-flex justify-content-center">
         <button class="btn btn-primary text-center" [disabled]="loginForm.invalid">Submit</button>

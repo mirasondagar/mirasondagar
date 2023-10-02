@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dial
 import { CreateComponent } from '../create/create.component';
 import { DeleteComponent } from '../delete/delete.component';
 import { UpdateComponent } from '../update/update.component';
+import { ViewComponent } from '../view/view.component';
 
 
 
@@ -21,7 +22,7 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  displayedColumns: string[] = ['Sr No', 'date', 'name', 'age', 'address', 'avatar', 'action'];
+  displayedColumns: string[] = ['Sr No', 'date', 'name', 'age', 'address', 'view', 'avatar', 'action'];
   dataSource = new MatTableDataSource<any>();
 
   // sort
@@ -67,9 +68,15 @@ export class UserComponent implements OnInit {
       width: '550px',
       data: element
     });
-    // popup.afterClosed().subscribe(result => {
-    //   this.fatchFun()
-    // });
+    popup.afterClosed().subscribe(result => {
+      this.fatchFun()
+    });
+  }
+  view(element: any) {
+    let popup = this.dialog.open(ViewComponent, {
+      width: '300px',
+      data: element
+    });
   }
 
   fatchFun() {

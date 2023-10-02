@@ -12,7 +12,7 @@ import { NgFor } from '@angular/common';
 })
 export class CreateComponent implements OnInit {
   loginForm: any
-  usingdata: any
+  usingdata: any = []
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       name: new FormControl('', [Validators.required,]),
@@ -25,7 +25,7 @@ export class CreateComponent implements OnInit {
   }
   constructor(private userdata: ServicesService, public dialogRef: MatDialogRef<CreateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.userdata.fatchapi('products').subscribe((data) => {
+    this.userdata.fatchapi('products').subscribe((data: any) => {
       this.usingdata = data
     })
   }
@@ -46,22 +46,21 @@ export class CreateComponent implements OnInit {
       address: this.loginForm.value.address,
       email: this.loginForm.value.email,
       password: this.loginForm.value.password,
-      product: this.loginForm.value.select
+      product: this.loginForm.value.select?.map(((pn: any) => {
+        return {
+          id: pn,
+          productName: this.usingdata.find((item: any) => item.id == pn)?.productName
+        }
+      }))
 
     }
     this.userdata.fatchapiid('fakeData', payload).subscribe((data) => {
       this.dialogRef.close();
+
     })
   }
   onCancel() {
     this.dialogRef.close();
   }
-
-  // this.user
-  // foods: Food[] = [
-  //   { value: 'steak-0', viewValue: 'Steak' },
-  //   { value: 'pizza-1', viewValue: 'Pizza' },
-  //   { value: 'tacos-2', viewValue: 'Tacos' },
-  // ];
 
 }

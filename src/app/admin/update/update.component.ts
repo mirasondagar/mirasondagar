@@ -10,19 +10,24 @@ import { ServicesService } from 'src/app/services.service';
   styleUrls: ['./update.component.css']
 })
 export class UpdateComponent {
-  loginForm = new FormGroup({
+  loginForm: any = new FormGroup({
     date: new FormControl('', [Validators.required,]),
     name: new FormControl('', [Validators.required,]),
     age: new FormControl('', [Validators.required,]),
     address: new FormControl('', [Validators.required,]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    select: new FormControl('', [Validators.required])
   });
+  usingdata: any
   dataSources: any
   id: any
   ngOnInit(): void { }
   constructor(private userdata: ServicesService, public dialogRef: MatDialogRef<UpdateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.userdata.fatchapi('products').subscribe((data) => {
+      this.usingdata = data
+    })
     this.fatchadata()
   }
   fatchadata() {
@@ -35,6 +40,7 @@ export class UpdateComponent {
       address: this.dataSources.address,
       email: this.dataSources.email,
       password: this.dataSources.password,
+      select: this.dataSources.product.map((item: any) => item?.id)
     })
 
 
@@ -56,7 +62,12 @@ export class UpdateComponent {
       address: this.loginForm.value.address,
       email: this.loginForm.value.email,
       password: this.loginForm.value.password,
-
+      product: this.loginForm.value.select?.map(((pn: any) => {
+        return {
+          id: pn,
+          productName: this.usingdata.find((item: any) => item.id == pn)?.productName
+        }
+      }))
     }
     this.userdata.fatchapiupdate('fakeData', this.data.id, payload,).subscribe((data) => {
       this.dialogRef.close();

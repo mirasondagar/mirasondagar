@@ -24,6 +24,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ChartModule } from 'angular-highcharts';
 import { ProductComponent } from './product/product.component';
 import { MatSelectModule } from '@angular/material/select';
+import { ViewComponent } from './view/view.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { QRCodeModule } from 'angular2-qrcode';
+
 
 
 @NgModule({
@@ -36,7 +40,8 @@ import { MatSelectModule } from '@angular/material/select';
     DeleteComponent,
     UpdateComponent,
     CreateComponent,
-    ProductComponent
+    ProductComponent,
+    ViewComponent,
   ],
   imports: [
     CommonModule,
@@ -55,9 +60,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatTooltipModule,
     MatMenuModule,
     ChartModule,
-    MatSelectModule
+    MatSelectModule,
+    MatPaginatorModule,
+
 
 
   ]
 })
 export class AdminModule { }
+
